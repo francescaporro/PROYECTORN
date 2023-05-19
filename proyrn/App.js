@@ -1,10 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import Home from './screens/Home';
-import Register from './screens/Register';
+import Register from './src/screens/Register';
 export default function App() {
 
  
