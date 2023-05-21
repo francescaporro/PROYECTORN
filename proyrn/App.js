@@ -1,21 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Home from './src/screens/Home';
 import Register from './src/screens/Register';
+import Login from './src/screens/Login';
+import { NavigationContainer } from '@react-navigation/native'; // solo puede haber un navigation container por eso lo ponemos en app
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 export default function App() {
-
  
   return (
-    <View>
-      <Register />   
-    </View>
+    // falta login en los stack.screen
+      <NavigationContainer> 
+      <Stack.Navigator> 
+        <Stack.Screen name='Register' component={Register}/>
+        <Stack.Screen name='Home' component={Home}/>
+        <Stack.Screen name='Login' component={Login}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -30,7 +30,7 @@ class FormRegister extends Component {
             style={styles.input}
             placeholder='Digita su correo electronico'
             keyboardType='email-address'
-            onChangeText={(text)=> this.setState({inputMail: text}) }
+            onChangeText={(text)=> this.setState({inputMail: text}) } // evento que recibe un callback (text)
             value={this.state.inputMail}
         />
         <TextInput
@@ -38,7 +38,7 @@ class FormRegister extends Component {
             placeholder='Digita tu password'
             onChangeText={(text) => this.setState({inputPassword: text})}
             value={this.state.inputPassword}
-            secureTextEntry={true}
+            secureTextEntry={true} // para q aparezcan circulitos y no las letras
         />
         <TouchableOpacity
             style={styles.btn}
