@@ -7,7 +7,8 @@ class FormRegister extends Component {
         super(props)
         this.state = {
             inputMail: '',
-            inputPassword:''
+            inputPassword:'',
+            
         }
     }
 
@@ -24,6 +25,8 @@ class FormRegister extends Component {
         })
         .catch(err => console.log(err))
     }
+
+
 
   render() {
     return (
@@ -42,6 +45,10 @@ class FormRegister extends Component {
             value={this.state.inputPassword}
             secureTextEntry={true}
         />
+        
+
+       
+
         <TouchableOpacity
             style={styles.btn}
             onPress={()=> this.registrarUsuario(this.state.inputMail, this.state.inputPassword)}
@@ -74,4 +81,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default FormRegister
+export default FormRegister;

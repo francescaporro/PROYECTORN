@@ -1,19 +1,32 @@
+import { Text, View, TextInput, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import { Text, View, TextInput } from 'react-native'
 
 export default class FormPost extends Component {
+    constructor(props){
+        super(props)
+    }
+  
     render() {
         return (
-            <View>
-                <TextInput 
-                style
-                keyboardType='default'
-                value=''
-                onChangeText={(text) => this.props.actualizarDescripcion(text)}
-                />
-            </View>
+        <View>
+            <TextInput
+            style={styles.input}
+            keyboardType='default'
+            value={this.props.stateDescripcion}
+            placeholder='Ingresa la descripcion de tu post'
+            onChangeText={ (text) => this.props.actualizarDescripcion(text) }
+            multiline={true}
+            rows={5}  
+            />
+        </View>
         )
     }
 }
 
-const styles = StyleSheet
+const styles = StyleSheet.create({
+    input: {
+        borderWidth:1,
+        borderColor: 'red',
+        padding:10
+    }
+})

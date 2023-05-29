@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import HomeNav from './src/navigation/Home';
+import HomeNav from './src/navigation/Home'; 
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
 import { NavigationContainer } from '@react-navigation/native'; // solo puede haber un navigation container por eso lo ponemos en app

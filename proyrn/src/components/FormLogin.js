@@ -18,6 +18,14 @@ class FormLogin extends Component {
         .catch( err => console.log(err))
     }
 
+    componentDidMount(){
+        auth.onAuthStateChanged( user =>{
+            if (user){
+                this.props.navigation.navigate('HomeNav')
+            }
+        })
+    }
+
     render(){
         return(
             <View>
@@ -35,6 +43,7 @@ class FormLogin extends Component {
                     value={this.state.password}
                     onChangeText={(text)=> this.setState({password : text})}
                     style={styles.input}
+                    secureTextEntry={true}
                 />
                 <TouchableOpacity
                     style={styles.btn}
