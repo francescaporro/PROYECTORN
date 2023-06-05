@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
 import React, { Component } from 'react'
 import { db, auth } from '../firebase/config'
@@ -57,6 +57,14 @@ export default class Post extends Component {
   render() {
     return (
       <View>
+
+    <TouchableOpacity onPress={()=> this.props.navigation.navigate(
+      'ProfileAmigo'
+    )}><Text>{this.props.data.data.owner}</Text></TouchableOpacity>
+         <Image
+          source={{uri: this.props.data.data.foto}}
+          style={styles.img}
+        />
         <Text>{this.props.data.data.descripcion}</Text>
         {
           this.state.isLiked ?
@@ -80,7 +88,20 @@ export default class Post extends Component {
             />
           </TouchableOpacity>
         }
+        <View>
+          <TouchableOpacity
+            onPress={()=> this.props.navigation.navigate('Comments', {id: this.props.data.id})}
+          >
+            <Text>Agregar comentario</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
     )
   }
 }
+const styles  = StyleSheet.create({
+  img:{
+    height: 200
+  }
+})

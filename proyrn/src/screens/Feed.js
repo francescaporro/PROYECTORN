@@ -33,6 +33,7 @@ export default class Feed extends Component {
         <Text>Feed</Text>
         <Posteos
             data={this.state.posts}
+            navigation = {this.props.navigation}
         />
       </View>
     )
