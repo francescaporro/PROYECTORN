@@ -12,7 +12,7 @@ export default function HomeNav() {
   return (
     
     <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
-        <Tab.Screen name='Feed' component={Feed}  options= { {tabBarIcon : ()=> <AntDesign name="home" size={24} color="black" />}}/>
+        <Tab.Screen name='Feed' component={Feed}  options= { {tabBarIcon : ()=> <AntDesign name="home" size={24} color="black" />} }/>
         <Tab.Screen name= 'NewPost' component={NewPost} options= {{tabBarIcon: ()=> <AntDesign name="pluscircleo" size={24} color="black" />}}/>
         <Tab.Screen name='Profile' component={Profile} options= {{tabBarIcon: ()=> <AntDesign name="user" size={24} color="black" />}} />
         
