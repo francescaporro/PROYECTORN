@@ -1,6 +1,6 @@
 import { Text, View, TextInput, TouchableOpacity, StyleSheet, Touchable } from 'react-native'
 import React, { Component } from 'react'
-import {auth} from '../firebase/config'
+import {auth, db} from '../firebase/config'
 
 class FormRegister extends Component {
     constructor(props){
@@ -18,6 +18,10 @@ class FormRegister extends Component {
             auth.onAuthStateChanged(user => {
                 if(user){
                     this.props.navigation.navigate('HomeNav')
+                    db.collection('users').add({
+                        owner:auth.currentUser.email,
+                        createdAt: Date.now()
+                    })
                 } else {
                     this.props.navigation.navigate('Login')
                 }
@@ -47,8 +51,7 @@ class FormRegister extends Component {
         />
         
 
-       
-
+    
         <TouchableOpacity
             style={styles.btn}
             onPress={()=> this.registrarUsuario(this.state.inputMail, this.state.inputPassword)}
