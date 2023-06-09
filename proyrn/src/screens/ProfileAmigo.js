@@ -2,44 +2,29 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { db } from '../firebase/config'
 
-
 export default class ProfileAmigo extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            infoUser:''
+    
+        constructor(props){
+            super(props)
+            this.state = {
+                infoUser:[],
+                posteos:[],
+                owner: this.props.route.params.user
+            }
         }
-    }
     componentDidMount(){
-        db
-        .collection('users')
+        db.collection('users')
         .where('owner', '==', this.props.route.params.email)
         .onSnapshot(docs => {
             let arrUser = []
 
-            docs.forEach(doc=> arrUser.push({
-                id: doc.id,
-                data: doc.data()
-            }))
-            this.setState({
-                infoUser:arrUser[0]
-            },()=>console.log(this.state))
+            docs.forEach(doc=> arrUser.push({id: doc.id}))
         })
-       
     }
     render() {
         return (
             <View>
-                {
-                    this.state.infoUser !== ''?
-                    <>
-                    <Text>{this.state.infoUser.data.owner}</Text>
-                    <Text>{this.state.infoUser.data.createdAt}</Text>
-                    </>
-                    : 
-                    null
-                }
-                
+                <Text> {this.props.route.params.email} </Text>
             </View>
         )
     }
