@@ -34,7 +34,7 @@ class NewPosts extends Component {
             descripcion: descripcion,
             foto: foto,
             likes: likes,
-            comments: comments,
+            comments: this.state.comments,
             createdAt: Date.now(),
         })
         .then((resp)=>{
