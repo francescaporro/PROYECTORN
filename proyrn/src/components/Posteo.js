@@ -10,7 +10,9 @@ export default class Post extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLiked: false
+      cantidadDeLikes: this.props.data.data.likes.length,
+      isLiked: false,
+      
     }
   }
 
@@ -32,6 +34,7 @@ export default class Post extends Component {
       })
       .then((resp) => {
         this.setState({
+          cantidadDeLikes: this.state.cantidadDeLikes +1,
           isLiked: true
         })
       })
@@ -45,6 +48,7 @@ export default class Post extends Component {
         likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
       })
       .then((resp) => this.setState({
+        cantidadDeLikes: this.state.cantidadDeLikes -1,
         isLiked: false
       }))
       .catch(err => console.log(err))
@@ -52,6 +56,20 @@ export default class Post extends Component {
 
   }
 
+  borrarFoto(){
+    if(auth.currentUser.email == this.props.data.owner){
+        db.collection('posts')
+    .doc(this.props.data.id) //identificar el documento
+    .delete({
+    })
+    .then(()=> {
+        console.log('Documento borrado')
+        this.props.navigation.navigate('Home')
+        location.reload(true)
+    })
+    .catch(e=>console.log(e))
+    }
+}
 
 
   render() {
@@ -79,7 +97,8 @@ export default class Post extends Component {
                 name='heart'
                 size={24}
                 color='red'
-              />
+              /> 
+              {this.state.cantidadDeLikes}
             </TouchableOpacity>
             :
             <TouchableOpacity
@@ -92,6 +111,11 @@ export default class Post extends Component {
               />
             </TouchableOpacity>
         }
+         {auth.currentUser.email == this.props.data.owner
+                ?<TouchableOpacity onPress={ ()=> this.borrarFoto() }>
+                    <Text style={styles.thing}><FontAwesome name='trash' size={17} color='tomato'/> Borrar Post</Text>
+                    </TouchableOpacity>  : <Text></Text> 
+                }
         <View>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Comments', { id: this.props.data.id })}

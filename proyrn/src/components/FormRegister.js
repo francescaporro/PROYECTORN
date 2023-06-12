@@ -9,36 +9,41 @@ class FormRegister extends Component {
         this.state = {
             inputMail: '',
             inputPassword: '',
-            nombreDeUsario: '',
+            nombreDeUsuario: '',
             bio: '',
             fotoDePerfil: '',
         }
     }
 
-    registrarUsuario(mail, password, nombreDeUsario, bio) {
+    registrarUsuario(mail, password, nombreDeUsuario, bio) {
         auth.createUserWithEmailAndPassword(mail, password)
             .then(data => {
-                this.props.navigation.navigate('HomeNav')
+                
                 db.collection('users').add({
                     owner: auth.currentUser.email,
                     createdAt: Date.now(),
-                    nombreDeUsario: this.state.nombreDeUsario,
+                    nombreDeUsuario: this.state.nombreDeUsuario,
                     bio: this.state.bio,
-                    fotoDePerfil: this.state.fotoDePerfil,
+                    fotoDePerfil: this.state.fotoDePerfil, 
                 })
+
                     .then(resp => console.log(resp))
                     .catch(err => console.log(err))
+                    this.props.navigation.navigate('HomeNav')
             })
             .catch(err => console.log(err))
+
     }
 
-    /* esto tambien es de la foto de perfil, no se si dejar actualizar footo o meterlo adentro del register, o antes*/
-    actualizarFoto(url) {
-        this.setState({
-            fotoDePerfil: url
+    componentDidMount(){
+        auth.onAuthStateChanged( user =>{
+            if (user){
+                this.props.navigation.navigate('HomeNav')
+            }
         })
     }
 
+  
 
     render() {
         return (
@@ -74,27 +79,11 @@ class FormRegister extends Component {
                     value={this.state.bio}
                 />
 
-                {/*Esto es lo de camera no se si esta bien, no se si es necesario ese if*/}
-                <View style={styles.container}>
-                    {
-                        this.state.foto !== '' ?
-                            <View>
-                                <TouchableOpacity
-                                    onPress={() => this.crearPosteo({
-                                        foto: this.state.fotoDePerfil,
-                                    })}
-                                >
-                                    <Text>Enviar foto</Text>
-                                </TouchableOpacity>
-                            </View>
-                            :
-                            <Camara actualizarFoto={(url) => this.actualizarFoto(url)} />
-                    }
-                </View>
+               
                 
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsario, this.state.bio)}
+                    onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsuario, this.state.bio)}
                 > {/* creo que aca faltaria lo de la foto*/}
 
                     <Text style={styles.btnText}>Registrar mi usuario</Text>
@@ -123,9 +112,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white'
     }, 
-    container:{
-        flex:1,
-    }
+  
 
 })
 
