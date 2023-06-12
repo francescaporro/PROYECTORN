@@ -29,12 +29,14 @@ class Profile extends Component {
         })
       }
     )
+    
   }
 
   render(){
     return (
       <View>
         <Text>Aqui va a ir toda la infor y acciones de nuestro Profile</Text>
+
         <ProfileData navigation={this.props.navigation} />
         <FlatList
           data={this.state.usuarios}

@@ -10,7 +10,7 @@ export default class CommentsForm extends Component {
             comentario:''
         }
     }
-
+ 
     crearComentario(comentario){
         db.collection('posts')
         .doc(this.props.idPost)

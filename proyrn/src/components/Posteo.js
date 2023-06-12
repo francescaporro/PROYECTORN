@@ -63,10 +63,12 @@ export default class Post extends Component {
           {email: this.props.data.data.owner}
         )}>
           <Text>{this.props.data.data.owner}</Text></TouchableOpacity>
+
         <Image
           source={{ uri: this.props.data.data.foto }}
           style={styles.img}
         />
+        
         <Text>{this.props.data.data.descripcion}</Text>
         {
           this.state.isLiked ?
