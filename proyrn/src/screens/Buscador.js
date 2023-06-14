@@ -13,34 +13,32 @@ export default class Buscador extends Component {
   }
 
   componentDidMount() {
-    db.collection('users')
-      .onSnapshot((docs) => {
-        let arrUsers = [];
-        docs.forEach((doc) => {
-          arrUsers.push({
-            id: doc.id,
-            data: doc.data()
-          });
+    db.collection('users').onSnapshot((docs) => {
+      let arrUsers = [];
+      docs.forEach((doc) => {
+        arrUsers.push({
+          id: doc.id,
+          data: doc.data()
         });
-        this.setState({ 
-            usuarios: arrUsers,
-             usuariosBackup: arrUsers })
       });
+      this.setState({ 
+        usuarios: arrUsers,
+        usuariosBackup: arrUsers
+      });
+    });
   }
 
   metodoQueFiltra(text) {
     let arrFiltrado = this.state.usuariosBackup.filter(
-      (usuario) => usuario.data.owner.toLowerCase().includes(text.toLowerCase()))
-      this.setState({usuarios: arrFiltrado})
-    
-    ;
-   
+      (usuario) => usuario.data.owner.toLowerCase().includes(text.toLowerCase())
+    );
+    this.setState({ usuarios: arrFiltrado });
   }
 
   render() {
     return (
       <View>
-        <Text> Buscador </Text>
+        <Text>Buscador</Text>
         <TextInput
           placeholder="Ingresa tu email"
           onChangeText={(text) => this.metodoQueFiltra(text)}
@@ -48,7 +46,17 @@ export default class Buscador extends Component {
         <FlatList
           data={this.state.usuarios}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <Text>{item.data.owner}</Text>}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('ProfileAmigo', {
+                  email: item.data.owner
+                })
+              }
+            >
+              <Text>{item.data.owner}</Text>
+            </TouchableOpacity>
+          )}
         />
       </View>
     );
