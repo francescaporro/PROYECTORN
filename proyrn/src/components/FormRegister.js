@@ -48,17 +48,17 @@ class FormRegister extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <TextInput
                     style={styles.input}
-                    placeholder='Digita su correo electronico'
+                    placeholder='Correo electronico*'
                     keyboardType='email-address'
                     onChangeText={(text) => this.setState({ inputMail: text })}
                     value={this.state.inputMail}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Digita tu password'
+                    placeholder='Contraseña*'
                     onChangeText={(text) => this.setState({ inputPassword: text })}
                     value={this.state.inputPassword}
                     secureTextEntry={true}
@@ -66,7 +66,7 @@ class FormRegister extends Component {
 
                 <TextInput
                     style={styles.input}
-                    placeholder='Cree su nombre de usuario'
+                    placeholder='Nombre de usuario*'
                     keyboardType="default"
                     onChangeText={(text) => this.setState({ nombreDeUsuario: text })}
                     value={this.state.nombreDeUsuario}
@@ -85,6 +85,7 @@ class FormRegister extends Component {
                 {this.state.inputMail && this.state.inputPassword && this.state.nombreDeUsuario && this.state.error === '' ? (
                     <TouchableOpacity
                         style={styles.btn}
+                    
                         onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsuario, this.state.bio)}
                     >
                         <Text style={styles.btnText}>Registrar mi usuario</Text>
@@ -92,24 +93,34 @@ class FormRegister extends Component {
                 ) : this.state.error ? (
                     <Text style={styles.error}>{this.state.error}</Text>
                 ) : (
-                    <Text style={styles.alert}>Los campos de email, contraseña y nombre de usuario son obligatorios</Text>
+                    
+                    <Text style={styles.alerta}>* Los campos de email, contraseña y nombre de usuario son obligatorios para registrarse</Text>
+                    
                 )}
+
+                
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        padding: 15,
+        justifyContent: 'center',
+    },
     input: {
         borderWidth: 1,
-        borderColor: '#3d3d3d',
+        borderColor: 'rgb(229,209,218)',
         marginTop: 24,
         height: 24,
-        padding: 5
+        padding: 5,
+        backgroundColor: 'rgb(255,255,255)',
     },
     btn: {
         marginVertical: 32,
-        backgroundColor: '#54d0e0',
+        backgroundColor: 'rgb(229,209,218)',
         padding: 10,
         borderRadius: 20,
     },
@@ -118,6 +129,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white'
     },
+    alerta: {
+        color: 'rgb(122,0,18)',
+        fontWeight: 'bold',
+        fontSize: 12,
+    }
 
 
 })

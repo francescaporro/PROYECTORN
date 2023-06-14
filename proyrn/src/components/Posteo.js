@@ -74,31 +74,31 @@ export default class Post extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.conteiner}>
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate(
           'ProfileAmigo', 
           {email: this.props.data.data.owner}
         )}>
-          <Text>{this.props.data.data.owner}</Text></TouchableOpacity>
+          <Text style={styles.textUser}>{this.props.data.data.owner}</Text></TouchableOpacity>
 
         <Image
           source={{ uri: this.props.data.data.foto }}
           style={styles.img}
         />
         
-        <Text>{this.props.data.data.descripcion}</Text>
         {
           this.state.isLiked ?
             <TouchableOpacity
               onPress={() => this.unlike()}
+              style={styles.likes}
             >
               <FontAwesome
                 name='heart'
                 size={24}
-                color='red'
+                color='rgb(216,166,178)'
               /> 
-              {this.state.cantidadDeLikes}
+              <Text style={styles.textCantidadLikes}> {this.state.cantidadDeLikes} </Text>
             </TouchableOpacity>
             :
             <TouchableOpacity
@@ -107,7 +107,7 @@ export default class Post extends Component {
               <FontAwesome
                 name='heart-o'
                 size={24}
-                color='red'
+                color='rgb(216,166,178)'
               />
             </TouchableOpacity>
         }
@@ -116,11 +116,16 @@ export default class Post extends Component {
                     <Text style={styles.thing}><FontAwesome name='trash' size={17} color='tomato'/> Borrar Post</Text>
                     </TouchableOpacity>  : <Text></Text> 
                 }
+        
+        <Text style={styles.textDescription}>{this.props.data.data.descripcion}</Text>
         <View>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Comments', { id: this.props.data.id })}
+            style={styles.comentariobtn}
           >
-            <Text>Agregar comentario</Text>
+            <FontAwesome name='comment-o' size={24} color='rgb(216,166,178)'/>
+
+            <Text style={styles.textCometario}>Agregar comentario</Text>
           </TouchableOpacity>
         </View>
 
@@ -131,5 +136,36 @@ export default class Post extends Component {
 const styles = StyleSheet.create({
   img: {
     height: 200
+  }, 
+  conteiner: {
+    padding: 10,
+  },
+  textUser: {
+    color: 'rgb(86,66,71)',
+    fontSize: 15,
+    fontWeight: 'bold',
+  }, 
+  textCometario: {
+    padding: 15,
+    fontSize: 15,
+    color:'rgb(216,166,178)',
+  },
+ comentariobtn: {
+  flex:1,
+  flexDirection: 'row',
+  justifyContent: 'flex-start', 
+ },
+  textDescription: {
+    fontSize:12,
+    color: 'rgb(68,68,68)',
+  }, 
+  textCantidadLikes: {
+    fontSize: 12,
+    color:'rgb(216,166,178)',
+    paddingTop: 5,
+  },
+  likes: {
+    flex:1,
+    flexDirection: 'row',
   }
 })
