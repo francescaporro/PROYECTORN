@@ -2,48 +2,50 @@ import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import { auth, db } from "../firebase/config";
 import Post from '../components/Posteos';
+import Posteos from '../components/Posteos';
 
 
 class Profile extends Component{
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
-            users: null,
-            posteos: []
+            users: {},
+            posts: []
         }
     }
 
 
     componentDidMount () {
-        db.collection('users').onSnapshot(
+        db.collection('users')
+        .where('owner', '==', auth.currentUser.email)
+        .onSnapshot(
             docs => {
                 docs.forEach(doc => {
-                    const data = doc.data();
-                    console.log(data);
-                    if(data.owner == auth.currentUser.email){
-                        this.setState({
-                            users: data
-                        })
-                    }
+                    this.setState({
+                        users: doc.data()
+                    })
                 })
-            }
-        )
-        db.collection('posts').orderBy('createdAt', 'desc').where('owner', '==', auth.currentUser.email).onSnapshot(
-            (docs => {
+            })
+
+        db.collection('posts')
+        .where('owner', '==', auth.currentUser.email)
+        .onSnapshot(
+            docs => {
                 let posts = []
-                docs.forEach(doc => { //recorremos el array de documentos
-                  posts.push({ //pusheamos en el array de resultados un objeto literal con el id de cada documento y la la info del documento que se obtiene con el metodo data()
+                
+                docs.forEach(doc => { 
+                  posts.push({ 
                     id: doc.id,
                     data: doc.data()
                   })
-                  this.setState({ //guardamos los datos en el estado del componente que luego renderizara los posteos dentro de la flatlist
-                    posteos: posts,
-                    loading: false
-                  }, ()=> console.log(this.state.posteos))  
+                  this.setState({
+                    posts: posts,
+                   
+                  })  
                   })
                 }
-              )
+              
         )
     }
   
@@ -62,11 +64,13 @@ class Profile extends Component{
                     <Text style={styles.log}>Logout</Text>
                 </TouchableOpacity>
                 <Text>Tus posts: {auth.currentUser.email}</Text>
-                <FlatList 
-                    data={this.state.posteos}//renderizamos posteos que seteamos en el estado anterior
+                
+                <FlatList
+                    data={this.state.posts}//renderizamos posteos que seteamos en el estado anterior
                     keyExtractor={item=>item.id.toString()}
-                    renderItem={({item}) => <Post postData={item} navigation={this.props.navigation}/> }
+                    renderItem={({item}) => <Posteos data={this.state.posts} navigation={this.props.navigation}/> }
                 />
+                
             </View>
 
         )
@@ -80,7 +84,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container:{
-        margin:10
+        margin:10, 
+        
     },
     user:{
         textAlign: 'center',
