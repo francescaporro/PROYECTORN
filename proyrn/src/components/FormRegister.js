@@ -12,38 +12,39 @@ class FormRegister extends Component {
             nombreDeUsuario: '',
             bio: '',
             fotoDePerfil: '',
+            error: ''
         }
     }
 
     registrarUsuario(mail, password, nombreDeUsuario, bio) {
         auth.createUserWithEmailAndPassword(mail, password)
             .then(data => {
-                
+
                 db.collection('users').add({
                     owner: auth.currentUser.email,
                     createdAt: Date.now(),
                     nombreDeUsuario: this.state.nombreDeUsuario,
                     bio: this.state.bio,
-                    fotoDePerfil: this.state.fotoDePerfil, 
+                    fotoDePerfil: this.state.fotoDePerfil,
                 })
 
                     .then(resp => console.log(resp))
                     .catch(err => console.log(err))
-                    this.props.navigation.navigate('HomeNav')
+                this.props.navigation.navigate('HomeNav')
             })
             .catch(err => console.log(err))
 
     }
 
-    componentDidMount(){
-        auth.onAuthStateChanged( user =>{
-            if (user){
+    componentDidMount() {
+        auth.onAuthStateChanged(user => {
+            if (user) {
                 this.props.navigation.navigate('HomeNav')
             }
         })
     }
 
-  
+
 
     render() {
         return (
@@ -79,15 +80,20 @@ class FormRegister extends Component {
                     value={this.state.bio}
                 />
 
-               
-                
-                <TouchableOpacity
-                    style={styles.btn}
-                    onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsuario, this.state.bio)}
-                > {/* creo que aca faltaria lo de la foto*/}
 
-                    <Text style={styles.btnText}>Registrar mi usuario</Text>
-                </TouchableOpacity>
+
+                {this.state.inputMail && this.state.inputPassword && this.state.nombreDeUsuario && this.state.error === '' ? (
+                    <TouchableOpacity
+                        style={styles.btn}
+                        onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsuario, this.state.bio)}
+                    >
+                        <Text style={styles.btnText}>Registrar mi usuario</Text>
+                    </TouchableOpacity>
+                ) : this.state.error ? (
+                    <Text style={styles.error}>{this.state.error}</Text>
+                ) : (
+                    <Text style={styles.alert}>Los campos de email, contraseña y nombre de usuario son obligatorios</Text>
+                )}
             </View>
         )
     }
@@ -111,8 +117,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         color: 'white'
-    }, 
-  
+    },
+
 
 })
 

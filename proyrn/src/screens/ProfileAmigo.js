@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import { db } from '../firebase/config'
 import { disableExpoCliLogging } from 'expo/build/logs/Logs'
 import Posteos from '../components/Posteos'
@@ -9,9 +9,8 @@ export default class ProfileAmigo extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            infoUser: [],
+            users: [],
             posteos: [],
-            owner: this.props.route.params.user,
         }
     }
     componentDidMount() {
@@ -22,11 +21,11 @@ export default class ProfileAmigo extends Component {
     
                 docs.forEach(doc => arrUser.push({
                     id: doc.id,
-                    data: doc.data()
+                    data: doc.data(),
                 }))
     
                 this.setState({
-                    infoUser:arrUser[0]
+                    users: arrUser[0]
                 }, ()=> console.log(this.state))
             })
 
@@ -47,7 +46,8 @@ export default class ProfileAmigo extends Component {
     render() {
         return (
             <View>
-               
+                 <Text style={styles.user}>@{this.state.users?.nombreDeUsuario}</Text>
+                 <Text style={styles.bio}> Biografia: {this.state.users?.bio}</Text>
                 <Posteos
                     data={this.state.posteos}
                     navigation={this.props.navigation}
@@ -56,3 +56,19 @@ export default class ProfileAmigo extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    user:{
+        textAlign: 'center',
+        fontFamily: 'sans-serif',
+        fontSize: 15,
+        marginTop: 10,
+        fontWeight:'bold'
+    },
+    bio:{
+        textAlign: 'center',
+        fontWeight: 'semi-bold',
+        fontSize: 12,
+        marginTop: 3,
+    },
+}) 
