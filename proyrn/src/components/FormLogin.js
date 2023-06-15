@@ -47,7 +47,6 @@ class FormLogin extends Component {
                 />
                 <TouchableOpacity
                     style={styles.btn}
-                    style={styles.btn}
                     onPress={()=> this.ingresar(this.state.email, this.state.password)}
                 >
                     <Text style={styles.btnText}>Ingresar</Text>
