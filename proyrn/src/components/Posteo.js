@@ -57,15 +57,14 @@ export default class Post extends Component {
   }
 
   borrarFoto() {
-    if (auth.currentUser.email == this.props.data.owner) {
+    if (auth.currentUser.email == this.props.data.data.owner) {
       db.collection('posts')
         .doc(this.props.data.id) //identificar el documento
         .delete({
         })
         .then(() => {
           console.log('Documento borrado')
-          this.props.navigation.navigate('Home')
-          location.reload(true)
+          this.props.navigation.navigate('Feed')
         })
         .catch(e => console.log(e))
     }
@@ -123,7 +122,7 @@ export default class Post extends Component {
           </TouchableOpacity>
         </View>
 
-        {auth.currentUser.email == this.props.data.owner
+        {auth.currentUser.email == this.props.data.data.owner
           ? <TouchableOpacity onPress={() => this.borrarFoto()}>
             <Text style={styles.thing}><FontAwesome name='trash' size={17} color='tomato' /> Borrar Post</Text>
           </TouchableOpacity> : <Text></Text>

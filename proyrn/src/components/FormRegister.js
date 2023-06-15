@@ -12,11 +12,12 @@ class FormRegister extends Component {
             nombreDeUsuario: '',
             bio: '',
             fotoDePerfil: '',
-            error: ''
+            error: '',
         }
     }
 
     registrarUsuario(mail, password, nombreDeUsuario, bio) {
+       
         auth.createUserWithEmailAndPassword(mail, password)
             .then(data => {
 
@@ -81,7 +82,7 @@ class FormRegister extends Component {
                 />
 
 
-
+                
                 {this.state.inputMail && this.state.inputPassword && this.state.nombreDeUsuario && this.state.error === '' ? (
                     <TouchableOpacity
                         style={styles.btn}

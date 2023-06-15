@@ -61,11 +61,12 @@ class Profile extends Component{
                 <View style={styles.profileCon}>
                 <Text style={styles.user}>@{this.state.users?.nombreDeUsuario}</Text>
                 <Text style={styles.bio}> Biografia: {this.state.users?.bio}</Text>
+                <Text style={styles.bio}>Cantidad de posteos: {this.state.posts.length}</Text>
                 </View>
                 <TouchableOpacity onPress={ ()=> this.Logout()} >
                     <Text style={styles.log}>Logout</Text>
                 </TouchableOpacity>
-                <Text>Tus posts: {auth.currentUser.email}</Text>
+                <Text>Tus posts: </Text>
                 
                 <FlatList
                     data={this.state.posts}//renderizamos posteos que seteamos en el estado anterior
@@ -78,6 +79,8 @@ class Profile extends Component{
         )
     }
 }
+
+
 
 const styles = StyleSheet.create({
     photo:{

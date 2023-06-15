@@ -14,6 +14,7 @@ export default class ProfileAmigo extends Component {
         }
     }
     componentDidMount() {
+        console.log(this.props.route.params)
             db.collection('users')
             .where('owner', '==', this.props.route.params.email)
             .onSnapshot(docs => {
@@ -25,7 +26,7 @@ export default class ProfileAmigo extends Component {
                 }))
     
                 this.setState({
-                    users: arrUser[0]
+                    users: arrUser[0].data
                 }, ()=> console.log(this.state))
             })
 
@@ -46,8 +47,15 @@ export default class ProfileAmigo extends Component {
     render() {
         return (
             <View>
-                 <Text style={styles.user}>@{this.state.users?.nombreDeUsuario}</Text>
-                 <Text style={styles.bio}> Biografia: {this.state.users?.bio}</Text>
+                 <View style={styles.profileCon}>
+                {this.state.users.bio && this.state.users.nombreDeUsuario != '' ? 
+                <View>
+                <Text style={styles.user}> @{this.state.users?.nombreDeUsuario}</Text>
+                <Text style={styles.bio}> Biografia: {this.state.users?.bio}</Text>
+                </View>
+                : null}
+                <Text style={styles.bio}>Cantidad de posteos: {this.state.posteos.length}</Text>
+                </View>
                 <Posteos
                     data={this.state.posteos}
                     navigation={this.props.navigation}

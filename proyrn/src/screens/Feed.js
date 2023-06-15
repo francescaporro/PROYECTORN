@@ -13,7 +13,7 @@ export default class Feed extends Component {
   }
 
   componentDidMount() {
-    db.collection('posts').onSnapshot(docs => {
+    db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(docs => {
       let arrDocs = []
 
       docs.forEach(doc => arrDocs.push({
