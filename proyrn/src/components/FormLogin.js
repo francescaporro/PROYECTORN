@@ -30,15 +30,15 @@ class FormLogin extends Component {
         return(
             <View>
                 <TextInput
-                    placeholder='Digita tu email'
+                    style={styles.input}
+                    placeholder='Correo electronico'
                     keyboardType='email-address'
                     value={this.state.email}
                     onChangeText={(text)=> this.setState({email : text})}
-                    style={styles.input}
                 />
 
                 <TextInput
-                    placeholder='Digita tu password'
+                    placeholder='Contraseña'
                     keyboardType='default'
                     value={this.state.password}
                     onChangeText={(text)=> this.setState({password : text})}
@@ -47,9 +47,10 @@ class FormLogin extends Component {
                 />
                 <TouchableOpacity
                     style={styles.btn}
+                    style={styles.btn}
                     onPress={()=> this.ingresar(this.state.email, this.state.password)}
                 >
-                    <Text>Ingresar</Text>
+                    <Text style={styles.btnText}>Ingresar</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -59,19 +60,28 @@ class FormLogin extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        paddingHorizontal:16,
-        margin: 16
+        flex: 1,
+        padding: 15,
+        justifyContent: 'center',
     },
     input:{
-        borderWidth:1,
-        borderColor: '#c3c3c3',
-        borderRadius:5,
-        marginTop:16,
-        padding:10
+        borderWidth: 1,
+        borderColor: 'rgb(229,209,218)',
+        marginTop: 24,
+        height: 24,
+        padding: 5,
+        backgroundColor: 'rgb(255,255,255)',
     },
     btn:{
-        marginVertical:32,
-        backgroundColor:'#54d0e0',
+        marginVertical: 32,
+        backgroundColor: 'rgb(194,149,160)',
+        padding: 10,
+        borderRadius: 20,
+    },
+    btnText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: 'white'
     }
 })
 

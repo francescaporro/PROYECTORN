@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         marginVertical: 32,
-        backgroundColor: 'rgb(229,209,218)',
+        backgroundColor: 'rgb(194,149,160)',
         padding: 10,
         borderRadius: 20,
     },

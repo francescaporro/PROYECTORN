@@ -12,7 +12,7 @@ export default class Post extends Component {
     this.state = {
       cantidadDeLikes: this.props.data.data.likes.length,
       isLiked: false,
-      
+
     }
   }
 
@@ -34,7 +34,7 @@ export default class Post extends Component {
       })
       .then((resp) => {
         this.setState({
-          cantidadDeLikes: this.state.cantidadDeLikes +1,
+          cantidadDeLikes: this.state.cantidadDeLikes + 1,
           isLiked: true
         })
       })
@@ -48,7 +48,7 @@ export default class Post extends Component {
         likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
       })
       .then((resp) => this.setState({
-        cantidadDeLikes: this.state.cantidadDeLikes -1,
+        cantidadDeLikes: this.state.cantidadDeLikes - 1,
         isLiked: false
       }))
       .catch(err => console.log(err))
@@ -56,20 +56,20 @@ export default class Post extends Component {
 
   }
 
-  borrarFoto(){
-    if(auth.currentUser.email == this.props.data.owner){
-        db.collection('posts')
-    .doc(this.props.data.id) //identificar el documento
-    .delete({
-    })
-    .then(()=> {
-        console.log('Documento borrado')
-        this.props.navigation.navigate('Home')
-        location.reload(true)
-    })
-    .catch(e=>console.log(e))
+  borrarFoto() {
+    if (auth.currentUser.email == this.props.data.owner) {
+      db.collection('posts')
+        .doc(this.props.data.id) //identificar el documento
+        .delete({
+        })
+        .then(() => {
+          console.log('Documento borrado')
+          this.props.navigation.navigate('Home')
+          location.reload(true)
+        })
+        .catch(e => console.log(e))
     }
-}
+  }
 
 
   render() {
@@ -77,8 +77,8 @@ export default class Post extends Component {
       <View style={styles.conteiner}>
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate(
-          'ProfileAmigo', 
-          {email: this.props.data.data.owner}
+          'ProfileAmigo',
+          { email: this.props.data.data.owner }
         )}>
           <Text style={styles.textUser}>{this.props.data.data.owner}</Text></TouchableOpacity>
 
@@ -86,49 +86,51 @@ export default class Post extends Component {
           source={{ uri: this.props.data.data.foto }}
           style={styles.img}
         />
-        
-        {
-          this.state.isLiked ?
-            <TouchableOpacity
-              onPress={() => this.unlike()}
-              style={styles.likes}
-            >
-              <FontAwesome
-                name='heart'
-                size={24}
-                color='rgb(216,166,178)'
-              /> 
-              <Text style={styles.textCantidadLikes}> {this.state.cantidadDeLikes} </Text>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity
-              onPress={() => this.like()}
-            >
-              <FontAwesome
-                name='heart-o'
-                size={24}
-                color='rgb(216,166,178)'
-              />
-            </TouchableOpacity>
-        }
-         {auth.currentUser.email == this.props.data.owner
-                ?<TouchableOpacity onPress={ ()=> this.borrarFoto() }>
-                    <Text style={styles.thing}><FontAwesome name='trash' size={17} color='tomato'/> Borrar Post</Text>
-                    </TouchableOpacity>  : <Text></Text> 
-                }
-        
-        <Text style={styles.textDescription}>{this.props.data.data.descripcion}</Text>
-        <View>
+
+        <View style={styles.secondconteiner}>
+          {
+            this.state.isLiked ?
+              <TouchableOpacity
+                onPress={() => this.unlike()}
+                style={styles.likes}
+              >
+                <FontAwesome
+                  name='heart'
+                  size={24}
+                  color='rgb(216,166,178)'
+                />
+                <Text style={styles.textCantidadLikes}> {this.state.cantidadDeLikes} </Text>
+              </TouchableOpacity>
+              :
+              <TouchableOpacity
+                onPress={() => this.like()}
+                style={styles.likes}
+              >
+                <FontAwesome
+                  name='heart-o'
+                  size={24}
+                  color='rgb(216,166,178)'
+                />
+                <Text style={styles.textCantidadLikes}> {this.state.cantidadDeLikes} </Text>
+              </TouchableOpacity>
+          }
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Comments', { id: this.props.data.id })}
             style={styles.comentariobtn}
           >
-            <FontAwesome name='comment-o' size={24} color='rgb(216,166,178)'/>
+            <FontAwesome name='comment-o' size={24} color='rgb(216,166,178)' />
 
-            <Text style={styles.textCometario}>Agregar comentario</Text>
           </TouchableOpacity>
         </View>
 
+        {auth.currentUser.email == this.props.data.owner
+          ? <TouchableOpacity onPress={() => this.borrarFoto()}>
+            <Text style={styles.thing}><FontAwesome name='trash' size={17} color='tomato' /> Borrar Post</Text>
+          </TouchableOpacity> : <Text></Text>
+        }
+
+
+        <Text style={styles.textDescription}>{this.props.data.data.descripcion}</Text>
       </View>
     )
   }
@@ -136,36 +138,37 @@ export default class Post extends Component {
 const styles = StyleSheet.create({
   img: {
     height: 200
-  }, 
+  },
   conteiner: {
     padding: 10,
   },
   textUser: {
-    color: 'rgb(86,66,71)',
+    color: 'rgb(97,74,80)',
     fontSize: 15,
     fontWeight: 'bold',
-  }, 
-  textCometario: {
-    padding: 15,
-    fontSize: 15,
-    color:'rgb(216,166,178)',
   },
- comentariobtn: {
-  flex:1,
-  flexDirection: 'row',
-  justifyContent: 'flex-start', 
- },
+  comentariobtn: {
+    margin: 'auto',
+  },
+  secondconteiner: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginRight: 30,
+  },
   textDescription: {
-    fontSize:12,
-    color: 'rgb(68,68,68)',
-  }, 
+    fontSize: 12,
+    color: 'rgb(97,74,80)',
+  },
   textCantidadLikes: {
     fontSize: 12,
-    color:'rgb(216,166,178)',
+    color: 'rgb(216,166,178)',
     paddingTop: 5,
+    marginLeft: 5,
   },
   likes: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
+    
   }
 })

@@ -58,8 +58,10 @@ class Profile extends Component{
     render(){
         return(
             <View style={styles.container}>
+                <View style={styles.profileCon}>
                 <Text style={styles.user}>@{this.state.users?.nombreDeUsuario}</Text>
                 <Text style={styles.bio}> Biografia: {this.state.users?.bio}</Text>
+                </View>
                 <TouchableOpacity onPress={ ()=> this.Logout()} >
                     <Text style={styles.log}>Logout</Text>
                 </TouchableOpacity>
@@ -86,6 +88,9 @@ const styles = StyleSheet.create({
     container:{
         margin:10, 
         
+    },
+    profileCon: {
+        backgroundColor: 'rgb(239,219,224)',
     },
     user:{
         textAlign: 'center',
