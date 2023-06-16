@@ -69,7 +69,7 @@ class Camara extends Component {
                         style={styles.btnCam}
                         onPress={()=> this.tomarFoto()}
                     >
-                        <Text>Tomar foto</Text>
+                        <Text style={styles.tomarFoto}>Tomar foto</Text>
                     </TouchableOpacity>
                 </>
                 : this.state.mostrarCamara === false && this.state.fotoTomada !== '' ?
@@ -82,16 +82,18 @@ class Camara extends Component {
                         style={styles.btnsContainer}
                         >
                             <TouchableOpacity
+                            style={styles.aceptarFoto}
                             onPress={()=> this.subirFotoAlStorage()}
                             >
-                                <Text>
+                                <Text style={styles.textFoto}>
                                     Aceptar foto
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity
+                            style={styles.rechazarFoto}
                             onPress={()=> this.rechazarFoto()}
                             >
-                                <Text>
+                                <Text style={styles.textFoto}>
                                     Rechazar foto
                                 </Text>
                             </TouchableOpacity>
@@ -119,19 +121,57 @@ class Camara extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        backgroundColor: 'rgb(239,219,224)'
     },
     camara:{
-        flex:2
+        flex:2,
+        margin: 10,
+        
     },
     btnCam:{
-        flex:1
+        marginVertical: 32,
+        backgroundColor: 'rgb(194,149,160)',
+        padding: 10,
+        borderRadius: 20,
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    tomarFoto: {
+        textAlign: 'center',
+        fontSize: 20, 
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    aceptarFoto: {
+        marginVertical: 32,
+        backgroundColor: 'rgb(197,225,185)',
+        padding: 10,
+        borderRadius: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 20,
+    },
+    textFoto:{
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'white',
+        textAlign: 'center',
+    },
+    rechazarFoto:{
+        marginVertical: 32,
+        backgroundColor: 'rgb(227,117,117)',
+        padding: 10,
+        borderRadius: 20,
+        marginLeft: 10,
+        marginRight: 10,
     },
     foto:{
-        flex:2
+        flex:2,
+        margin: 10,
     },
     btnsContainer:{
-        flex:1
+        flex:1,
     }
 })
 

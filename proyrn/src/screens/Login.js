@@ -23,13 +23,17 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
   conteiner: {
-    padding: 15,
+    flex: 1,
+    padding: 10,
     justifyContent: 'center',
+    backgroundColor: 'rgb(251,246,247)',
   },
   text1: {
-   
-    fontSize: 25,
+    textAlign: 'center',
+    fontSize: 35,
     fontWeight: 'bold',
+    paddingTop: 20,
+    letterSpacing: 2,
   },
   text2: {
     marginVertical: 32,
@@ -40,10 +44,13 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   text2: {
-    marginVertical: 32,
-    padding: 10,
     fontWeight: 'bold',
-    color: 'black'
+    color: 'black', 
+    marginVertical: 32,
+    backgroundColor: 'rgb(194,149,160)',
+    padding: 10,
+    borderRadius: 20,
+    marginLeft: 10,
   },
 
 })

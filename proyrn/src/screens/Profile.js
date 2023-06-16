@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Image} from 'react-native';
 import { auth, db } from "../firebase/config";
 import Post from '../components/Posteos';
 import Posteos from '../components/Posteos';
+import { FontAwesome } from '@expo/vector-icons'
 
 
 class Profile extends Component{
@@ -60,19 +61,32 @@ class Profile extends Component{
             <View style={styles.container}>
                 <View style={styles.profileCon}>
                 <Text style={styles.user}>@{this.state.users?.nombreDeUsuario}</Text>
-                <Text style={styles.bio}> Biografia: {this.state.users?.bio}</Text>
+                <Text style={styles.bio}> Bio: {this.state.users?.bio}</Text>
                 <Text style={styles.bio}>Cantidad de posteos: {this.state.posts.length}</Text>
                 </View>
                 <TouchableOpacity onPress={ ()=> this.Logout()} >
                     <Text style={styles.log}>Logout</Text>
                 </TouchableOpacity>
-                <Text>Tus posts: </Text>
-                
+
+                <Text style={styles.tusPosts}>Tus posts: </Text>
+
+                {this.state.posts.length  == 0 ? 
+                <View>
+                     <Image source={require('../../assets/img.png')} style={styles.image}/>
+                     <Text style={styles.nopost}>No has realizado ningun posts. </Text>
+                </View>
+                : 
                 <FlatList
                     data={this.state.posts}//renderizamos posteos que seteamos en el estado anterior
                     keyExtractor={item=>item.id.toString()}
                     renderItem={({item}) => <Posteos data={this.state.posts} navigation={this.props.navigation}/> }
                 />
+
+                }
+
+               
+                
+                
                 
             </View>
 
@@ -89,7 +103,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container:{
+        flex: 1,
         margin:10, 
+        justifyContent: 'flex-start',
+        
         
     },
     profileCon: {
@@ -98,24 +115,47 @@ const styles = StyleSheet.create({
     user:{
         textAlign: 'center',
         fontFamily: 'sans-serif',
-        fontSize: 15,
+        fontSize: 28,
         marginTop: 10,
         fontWeight:'bold'
+    },
+    tusPosts:{
+        color: 'rgb(86,66,71)',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 3,
     },
     log:{
         textAlign: 'center',
         fontFamily: 'sans-serif',
-        fontSize: 11,
-        marginTop: 7,
-        color: 'grey',
-        fontStyle: 'italic'
+        fontSize: 11, 
+        color: 'white',
+        width: 200,
+        backgroundColor: 'rgb(129,99,106)',
+        padding: 10,
+        borderRadius: 20,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 10,
+        marginBottom: 15,
     },
     bio:{
         textAlign: 'center',
         fontWeight: 'semi-bold',
-        fontSize: 12,
+        fontSize: 15,
         marginTop: 3,
     },
+    nopost:{
+        fontWeight: 'semi-bold',
+        fontSize: 15,
+        marginTop: 3,
+        textAlign: 'center',
+    },
+    image: {
+        height: 100, 
+        width: 100,
+        margin: 'auto',
+      },
 }) 
 
 export default Profile;

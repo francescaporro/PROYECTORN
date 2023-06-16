@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
         height: 24,
         padding: 5,
         backgroundColor: 'rgb(255,255,255)',
+        borderRadius: 20,
     },
     btn: {
         marginVertical: 32,
@@ -133,7 +134,8 @@ const styles = StyleSheet.create({
     alerta: {
         color: 'rgb(122,0,18)',
         fontWeight: 'bold',
-        fontSize: 12,
+        fontSize: 14,
+        
     }
 
 
