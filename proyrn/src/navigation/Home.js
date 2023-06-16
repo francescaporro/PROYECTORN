@@ -13,11 +13,14 @@ const Tab = createBottomTabNavigator()
 export default function HomeNav() {
   return (
     
-    <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
-        <Tab.Screen name='FunctionalitiesNav' component={FunctionalitiesNav}  options= { {tabBarIcon : ()=> <AntDesign name="home" size={24} color="black" />} }/>
-        <Tab.Screen name= 'NewPost' component={NewPost} options= {{tabBarIcon: ()=> <AntDesign name="pluscircleo" size={24} color="black" />}}/>
-        <Tab.Screen name='Profile' component={Profile} options= {{tabBarIcon: ()=> <AntDesign name="user" size={24} color="black" />}} />
-        <Tab.Screen name='Buscador' component={Buscador} options= {{tabBarIcon: ()=> <AntDesign name="search1" size={24} color="black" />}} />
+    <Tab.Navigator 
+    screenOptions={{ tabBarShowLabel: false }} 
+    
+    >
+        <Tab.Screen name='FunctionalitiesNav' component={FunctionalitiesNav}  options= { {tabBarIcon : ()=> <AntDesign name="home" size={24} color='rgb(97,74,80)' />} }/>
+        <Tab.Screen name= 'NewPost' component={NewPost} options= {{tabBarIcon: ()=> <AntDesign name="pluscircleo" size={24} color='rgb(97,74,80)' />}}/>
+        <Tab.Screen name='Profile' component={Profile} options= {{tabBarIcon: ()=> <AntDesign name="user" size={24} color='rgb(97,74,80)' />}} />
+        <Tab.Screen name='Buscador' component={Buscador} options= {{tabBarIcon: ()=> <AntDesign name="search1" size={24} color='rgb(97,74,80)' />}} />
         
     </Tab.Navigator>
   )

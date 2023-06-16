@@ -77,8 +77,9 @@ export default class Post extends Component {
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate(
           'ProfileAmigo',
-          { email: this.props.data.data.owner }
-        )}>
+          { email: this.props.data.data.owner })}
+          style={styles.userbtn}
+          >
           <Text style={styles.textUser}>{this.props.data.data.owner}</Text></TouchableOpacity>
 
         <Image
@@ -136,10 +137,15 @@ export default class Post extends Component {
 }
 const styles = StyleSheet.create({
   img: {
-    height: 200
+    height: 200, 
+    borderRadius: 20,
+    marginBottom: 10,
   },
   conteiner: {
     padding: 10,
+    backgroundColor: 'rgb(251,246,247)',
+    margin: 10,
+    borderRadius: 20,
   },
   textUser: {
     color: 'rgb(97,74,80)',
@@ -169,5 +175,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     
-  }
+  },
+    userbtn:{
+    marginVertical: 15,
+    backgroundColor: 'rgb(243,228,231)',
+    padding: 10,
+    borderRadius: 20,
+  },
 })
