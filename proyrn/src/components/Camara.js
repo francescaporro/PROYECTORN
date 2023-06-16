@@ -104,14 +104,14 @@ class Camara extends Component {
                 <View>
                     <Text>Rechazaste los permisos</Text>
                     <TouchableOpacity>
-                        <Text>
+                        <Text >
                             Solicitalos de nuevo aqui
                         </Text>
                     </TouchableOpacity>
                 </View> 
                 :
-                <Text>
-                    Solicitando permisos
+                <Text style={styles.solicitar}>
+                    Solicitando permisos...
                 </Text>
             }
         </View>
@@ -172,6 +172,13 @@ const styles = StyleSheet.create({
     },
     btnsContainer:{
         flex:1,
+    },
+    solicitar:{
+        textAlign: 'center',
+        fontSize: 20,
+        margin: 'auto',
+        fontWeight: 'bold',
+        color: 'white'
     }
 })
 
