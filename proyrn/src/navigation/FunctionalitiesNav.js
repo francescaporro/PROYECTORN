@@ -12,14 +12,17 @@ function FunctionalitiesNav() {
         <Stack.Screen
             name='Feed'
             component={Feed}
+            options={{headerShown: false}}
         />
         <Stack.Screen
             name='Comments'
             component={Comments}
+            options={{headerShown: false}}
         />
          <Stack.Screen
             name='ProfileAmigo'
             component={ProfileAmigo}
+            options={{headerShown: false}}
         />
       </Stack.Navigator>
     )

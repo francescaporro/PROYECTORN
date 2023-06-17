@@ -6,7 +6,7 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.conteiner}>
-         <Image source={require('../../assets/userlogpgir.png')} style={styles.image}/>
+       <Image source= {require('../../assets/userlogp.png')} style={styles.image}/>
         <Text style={styles.text1}>Login</Text>
         <FormLogin navigation={this.props.navigation} />
         <Text style={styles.text3}>

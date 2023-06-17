@@ -26,12 +26,14 @@ class FormRegister extends Component {
                     createdAt: Date.now(),
                     nombreDeUsuario: this.state.nombreDeUsuario,
                     bio: this.state.bio,
-                    fotoDePerfil: this.state.fotoDePerfil,
+                    fotoDePerfil: '',
                 })
 
-                    .then(resp => console.log(resp))
-                    .catch(err => console.log(err))
-                this.props.navigation.navigate('HomeNav')
+                .then(resp => {
+                    console.log(resp)
+                    this.props.navigation.navigate('Info', {docId: resp.id})
+                })
+                .catch(err => console.log(err))
             })
             .catch(err => console.log(err))
 
@@ -40,7 +42,7 @@ class FormRegister extends Component {
     componentDidMount() {
         auth.onAuthStateChanged(user => {
             if (user) {
-                this.props.navigation.navigate('HomeNav')
+                this.props.navigation.navigate('Info')
             }
         })
     }
@@ -87,7 +89,7 @@ class FormRegister extends Component {
                     <TouchableOpacity
                         style={styles.btn}
                     
-                        onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsuario, this.state.bio)}
+                        onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword, this.state.nombreDeUsuario, this.state.bio), this.props.navigation.navigate('Info')}
                     >
                         <Text style={styles.btnText}>Registrar mi usuario</Text>
                     </TouchableOpacity>
