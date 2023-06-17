@@ -42,7 +42,7 @@ class FormRegister extends Component {
     componentDidMount() {
         auth.onAuthStateChanged(user => {
             if (user) {
-                this.props.navigation.navigate('Info')
+                this.props.navigation.navigate('HomeNav')
             }
         })
     }
