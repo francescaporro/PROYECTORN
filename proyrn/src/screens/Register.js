@@ -13,7 +13,7 @@ class Register extends Component {
         <Image source={require('../../assets/user.png')} style={styles.image}/>
         <Text style={styles.text1}>Crea tu cuenta</Text>
         
-        <FormRegister />
+        <FormRegister navigation={this.props.navigation} />
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
           <Text  style={styles.text2}>Ya tienes cuenta? Vamos a Login</Text></TouchableOpacity>
       </View>

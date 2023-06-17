@@ -24,7 +24,7 @@ export default class MyImagePicker extends Component {
             let ref = storage.ref(`imgPerfil/${Date.now()}.jpeg`)
             ref.put(imagen)
             .then(()=> {
-                ref.getDownloadURL()
+                ref.getDownloadURL()            // se lo paso al padre que es info 
                 .then(url => this.props.actualizarFotoPerfil(url))
             })
         })
